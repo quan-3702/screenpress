@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ScreenPress – Screen Recorder with Webcam</title>
+  <meta name="description" content="Record your screen with your webcam in a bubble, your microphone and computer sound. Trim, cut and save MP4 or WebM videos. Works offline, no account, no subscription.">
+  <meta name="theme-color" content="#6d28d9">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><img src="icon-192.png" alt="" width="30" height="30"><span>ScreenPress</span></div>
+    <nav class="tabs" role="tablist">
+      <button id="tabRec" class="tab on" role="tab">● Record</button>
+      <button id="tabLib" class="tab" role="tab">🎞 My recordings <span id="libCount" class="badge"></span></button>
+      <button id="tabEdit" class="tab" role="tab" hidden>✂ Edit</button>
+    </nav>
+    <span class="spacer"></span>
+    <div class="top-btns">
+      <button id="importBtn" class="tb" title="Open a video file to trim and cut">📂 Open a video</button>
+      <button id="moreBtn" class="tb">☰ More</button>
+      <button id="proBtn" class="pro-btn">★ Get Pro</button>
+    </div>
+    <div id="menu" class="menu" hidden>
+      <a href="help.html" target="_blank" rel="noopener">❓ How to use ScreenPress</a>
+      <a href="mailto:thequan03072002@gmail.com?subject=ScreenPress%20feedback">✉ Feedback &amp; support</a>
+      <hr>
+      <a href="https://apps.microsoft.com/detail/9P8M0CKNNJPM" target="_blank" rel="noopener">More apps: CaptionPress – automatic subtitles for your videos</a>
+      <a href="https://apps.microsoft.com/detail/9NDCRGD5QFJ4" target="_blank" rel="noopener">More apps: RecipePress family cookbook maker</a>
+    </div>
+    <input id="importIn" type="file" accept="video/*,.webm,.mp4,.mov,.mkv" hidden>
+  </header>
+
+  <main id="viewRec" class="layout">
+    <aside class="left">
+      <section class="tool">
+        <h2>🎬 What to record</h2>
+        <div class="seg" id="modeSeg">
+          <button data-mode="both" class="on">🖥 Screen + 🙂 camera</button>
+          <button data-mode="screen">🖥 Screen only</button>
+          <button data-mode="cam">🙂 Camera only</button>
+        </div>
+      </section>
+      <section class="tool" id="camTool">
+        <h2>🙂 Camera</h2>
+        <label class="field">Camera<select id="camSel"><option value="">Default camera</option></select></label>
+        <div class="field" id="shapeField">Shape<div class="seg small-seg" id="shapeSeg">
+          <button data-shape="circle" class="on">● Circle</button>
+          <button data-shape="rounded">▢ Rounded <span class="pro-tag">PRO</span></button>
+          <button data-shape="square">■ Square <span class="pro-tag">PRO</span></button>
+        </div></div>
+        <div class="field" id="sizeField">Size<div class="seg small-seg" id="sizeSeg">
+          <button data-size="s">Small</button><button data-size="m" class="on">Medium</button><button data-size="l">Large</button>
+        </div></div>
+        <div class="field" id="cornerField">Position<div class="corners" id="cornerPick">
+          <button data-c="tl" title="Top left">↖</button><button data-c="tr" title="Top right">↗</button>
+          <button data-c="bl" title="Bottom left">↙</button><button data-c="br" class="on" title="Bottom right">↘</button>
+        </div></div>
+        <div class="two">
+          <label class="check"><input id="mirror" type="checkbox"> Mirror (like a mirror)</label>
+          <label class="field" id="ringField">Ring colour <span class="pro-tag">PRO</span><input id="ring" type="color"></label>
+        </div>
+      </section>
+      <section class="tool">
+        <h2>🎙 Sound</h2>
+        <label class="field">Microphone<select id="micSel"><option value="">Default microphone</option><option value="off">No microphone</option></select></label>
+        <div class="meter" aria-hidden="true"><div id="micLevel"></div></div>
+        <label class="check"><input id="sysAudio" type="checkbox"> Include computer sound <span class="muted">(tick “Also share system audio” when Windows asks)</span></label>
+      </section>
+      <section class="tool">
+        <h2>⚙ Quality</h2>
+        <div class="two">
+          <label class="field">Video size<select id="resSel">
+            <option value="720">HD 720p</option>
+            <option value="1080">Full HD 1080p ★</option>
+            <option value="1440">2K 1440p ★</option>
+            <option value="2160">4K 2160p ★</option>
+          </select></label>
+          <label class="field">Smoothness<select id="fpsSel"><option value="30">30 frames/s</option><option value="60">60 frames/s ★</option></select></label>
+        </div>
+        <label class="field">Video file<select id="fmtSel"><option value="webm">WebM (plays in Edge, Chrome, YouTube)</option><option value="mp4">MP4 (plays everywhere) ★</option></select></label>
+        <label class="check"><input id="countdown" type="checkbox"> Count down 3‑2‑1 before recording</label>
+        <label class="check"><input id="cursor" type="checkbox"> Show the mouse pointer</label>
+        <p class="hint pro-only">★ = Pro. Free recordings: up to 5 minutes, HD 720p, WebM, with a small “ScreenPress” mark.</p>
+      </section>
+      <p class="promise">🔒 Recordings stay on this PC – nothing is uploaded.<br>💳 Pay once for Pro – no subscription.</p>
+      <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=ScreenPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
+    </aside>
+
+    <section class="stage">
+      <div id="setupBox" class="setup">
+        <div class="mock" id="mock">
+          <div class="mock-screen" id="mockScreen"><span>Your screen</span></div>
+          <div class="mock-cam" id="mockCam"><video id="camPrev" muted playsinline autoplay></video><span id="camHint">Camera preview</span></div>
+          <div class="mock-wm pro-only">Recorded with ScreenPress</div>
+        </div>
+        <button id="recBtn" class="rec-btn"><span class="dot"></span> Start recording</button>
+        <p class="muted center" id="recHint">Windows asks which screen, window or browser tab to share. Then the recording starts.</p>
+        <p id="setHint" class="hint warn center"></p>
+      </div>
+      <div id="liveBox" class="live" hidden>
+        <video id="livePrev" muted playsinline autoplay></video>
+        <div class="live-bar">
+          <span class="rec-ind"><span class="dot"></span><span id="liveTime">0:00</span></span>
+          <span id="liveLimit" class="muted"></span>
+          <span class="spacer"></span>
+          <button id="pauseBtn" class="tb">⏸ Pause</button>
+          <button id="muteBtn" class="tb">🎙 Mic on</button>
+          <span class="corners mini" id="liveCorners"><button data-c="tl">↖</button><button data-c="tr">↗</button><button data-c="bl">↙</button><button data-c="br">↘</button></span>
+          <button id="camToggle" class="tb">🙂 Hide camera</button>
+          <button id="popBtn" class="tb" title="Small floating window with the controls, on top of other windows">⧉ Pop out controls</button>
+          <button id="stopBtn" class="stop-btn">■ Stop</button>
+        </div>
+        <p class="muted center">Tip: switch to the window you want to show – ScreenPress keeps recording in the background. Stop with ■ Stop here or “Stop sharing” in the bar Windows shows.</p>
+      </div>
+      <div id="countBox" class="count" hidden><span id="countNum">3</span></div>
+    </section>
+  </main>
+
+  <main id="viewLib" class="lib" hidden>
+    <div class="lib-head"><h2>My recordings</h2><span id="storeLine" class="muted"></span></div>
+    <div id="libList" class="lib-list"></div>
+    <p id="libEmpty" class="muted center" hidden>No recordings yet. Click <b>● Record</b> to make your first one.</p>
+  </main>
+
+  <main id="viewEdit" class="edit" hidden>
+    <div class="ed-main">
+      <div class="ed-player"><video id="edVideo" playsinline></video><div id="edTitlePrev" class="title-prev" hidden></div></div>
+      <div class="ed-ctrl">
+        <button id="edPlay" class="tb">▶ Play</button>
+        <span id="edTime" class="mono">0:00 / 0:00</span>
+        <span class="spacer"></span>
+        <span id="edKept" class="muted"></span>
+      </div>
+      <div class="timeline" id="timeline">
+        <canvas id="tlCanvas"></canvas>
+        <div id="tlSel" class="tl-sel" hidden></div>
+        <div id="tlHead" class="tl-head"></div>
+      </div>
+      <p class="hint">Drag on the timeline to select a part. <b>Remove selection</b> cuts it out. Selecting the beginning or end trims it.</p>
+      <div class="ed-tools">
+        <button id="trimStart" class="tb" title="Remove everything before the playhead">⇤ Trim start here</button>
+        <button id="trimEnd" class="tb" title="Remove everything after the playhead">Trim end here ⇥</button>
+        <button id="cutSel" class="tb" disabled>✂ Remove selection</button>
+        <button id="undoCut" class="tb" disabled>↶ Undo</button>
+        <button id="resetCuts" class="ghost small">Keep everything</button>
+      </div>
+    </div>
+    <aside class="ed-side">
+      <section class="tool">
+        <h2>Name</h2>
+        <input id="edName" type="text" maxlength="120">
+      </section>
+      <section class="tool">
+        <h2>🪧 Title at the start <span class="pro-tag">PRO</span></h2>
+        <label class="check"><input id="tcOn" type="checkbox"> Show a title for 3 seconds</label>
+        <input id="tcTitle" type="text" maxlength="80" placeholder="How to make a budget in Excel">
+        <input id="tcSub" type="text" maxlength="120" placeholder="Small second line (optional)">
+        <div class="two"><label class="field">Background<input id="tcBg" type="color"></label><label class="field">Text<input id="tcInk" type="color"></label></div>
+      </section>
+      <section class="tool">
+        <h2>💾 Save the video</h2>
+        <label class="field">File type<select id="exFmt"><option value="webm">WebM</option><option value="mp4">MP4 ★</option></select></label>
+        <button id="exportBtn" class="primary">💾 Save video…</button>
+        <p class="hint" id="exHint"></p>
+        <div id="exProg" class="prog" hidden><div id="exBar"></div></div>
+        <p id="exLine" class="muted"></p>
+        <button id="exCancel" class="ghost small" hidden>Cancel</button>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="proDialog" class="dlg">
+    <h2>ScreenPress Pro</h2>
+    <p class="muted">One-time purchase. Yours forever on this Microsoft account. No subscription, ever.</p>
+    <ul class="pro-list">
+      <li><strong>Record as long as you like</strong> – free recordings stop at 5 minutes</li>
+      <li><strong>No “ScreenPress” mark</strong> on your videos</li>
+      <li><strong>Full HD, 2K and 4K</strong> and smooth 60 frames per second</li>
+      <li><strong>MP4 videos</strong> that play everywhere – phones, PowerPoint, WhatsApp, every website</li>
+      <li><strong>Cut out mistakes</strong> in the middle and add a title at the start</li>
+      <li><strong>Rounded and square camera</strong> with a coloured ring</li>
+    </ul>
+    <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=ScreenPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
+    <p id="proMsg" class="pro-msg" hidden></p>
+    <div class="row-btns">
+      <button id="buyBtn" class="primary" autofocus>Unlock Pro</button>
+      <button id="restoreBtn" class="ghost">Restore purchase</button>
+      <button id="closePro" class="ghost">Not now</button>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" hidden></div>
+  <div id="restartBar" class="restart" hidden>A new version of ScreenPress is ready. <button id="restartBtn" class="primary">Restart now</button></div>
+  <script src="draw.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

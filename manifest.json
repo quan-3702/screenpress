@@ -1,0 +1,17 @@
+{
+  "name": "ScreenPress - Screen Recorder with Webcam",
+  "short_name": "ScreenPress",
+  "description": "Record your screen with your webcam in a bubble, microphone and computer sound. Trim, cut and save MP4 or WebM videos – works offline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#6d28d9",
+  "theme_color": "#6d28d9",
+  "categories": ["productivity", "multimedia", "education"],
+  "file_handlers": [{ "action": "./", "accept": { "video/*": [".webm", ".mp4", ".mov", ".mkv", ".m4v"] } }],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
