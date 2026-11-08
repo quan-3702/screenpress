@@ -118,3 +118,22 @@ input[type=color] { width: 100%; height: 34px; border: 1px solid var(--line); bo
 .restart { position: fixed; left: 50%; top: 12px; transform: translateX(-50%); background: var(--card); border: 1px solid var(--line); padding: 8px 12px; border-radius: 12px; z-index: 60; display: flex; gap: 10px; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
 @media (max-width: 900px) { .layout, .edit { grid-template-columns: 1fr; } .left, .ed-side { border: 0; } }
 .dlg h2 { font-size: 21px; margin-bottom: 4px; }
+.notes .left { gap: 10px; }
+.nt-name { font-weight: 700; font-size: 16px; overflow-wrap: anywhere; }
+.stage.nt-stage { overflow: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; align-items: stretch; justify-content: flex-start; }
+.nt-head { display: flex; align-items: center; gap: 12px; position: sticky; top: -16px; margin-top: -16px; padding: 16px 0 8px; background: var(--bg); z-index: 2; width: 100%; max-width: 1100px; }
+.nt-head audio { flex: 1; max-width: 640px; }
+.nt-list { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 1100px; }
+.nt-row { display: grid; grid-template-columns: 64px auto 1fr; gap: 8px; align-items: start; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 6px 8px; }
+.nt-row:not(:has(.nt-spk)) { grid-template-columns: 64px 1fr; }
+.nt-t { background: transparent; border: 0; color: var(--acc); font-variant-numeric: tabular-nums; padding: 6px 4px; font-weight: 600; }
+.nt-spk { width: auto; max-width: 170px; border-left: 5px solid var(--spk); font-weight: 600; }
+.nt-row textarea { font: inherit; width: 100%; border: 1px solid transparent; background: transparent; color: var(--text); resize: vertical; padding: 5px 6px; border-radius: 7px; min-height: 34px; }
+.nt-row textarea:focus { border-color: var(--line); background: var(--bg); outline: none; }
+.nt-empty { padding: 40px 10px; }
+.nt-people { display: flex; flex-direction: column; gap: 6px; }
+.nt-person { display: grid; grid-template-columns: 12px 1fr auto auto; gap: 6px; align-items: center; }
+.nt-person .dot { width: 12px; height: 12px; border-radius: 50%; }
+.nt-person .nt-merge { grid-column: 2 / -1; font-size: 13px; padding: 4px 6px; }
+.vb-chip { display: inline-flex; align-items: center; gap: 2px; background: var(--acc-2); border-radius: 12px; padding: 1px 4px 1px 9px; margin: 2px 0; font-size: 12px; color: var(--text); }
+.vb-chip button { background: transparent; border: 0; padding: 0 4px; color: var(--muted); font-size: 11px; }

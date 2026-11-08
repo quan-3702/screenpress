@@ -17,6 +17,7 @@
       <button id="tabRec" class="tab on" role="tab">● Record</button>
       <button id="tabLib" class="tab" role="tab">🎞 My recordings <span id="libCount" class="badge"></span></button>
       <button id="tabEdit" class="tab" role="tab" hidden>✂ Edit</button>
+      <button id="tabNotes" class="tab" role="tab" hidden>📝 Meeting notes</button>
     </nav>
     <span class="spacer"></span>
     <div class="top-btns">
@@ -162,6 +163,11 @@
         <div class="two"><label class="field">Background<input id="tcBg" type="color"></label><label class="field">Text<input id="tcInk" type="color"></label></div>
       </section>
       <section class="tool">
+        <h2>📝 Meeting notes</h2>
+        <p class="hint">Write down what was said, who said it, and save Word minutes.</p>
+        <button id="edNotes" class="tb">📝 Meeting notes…</button>
+      </section>
+      <section class="tool">
         <h2>💾 Save the video</h2>
         <label class="field">File type<select id="exFmt"><option value="webm">WebM</option><option value="mp4">MP4 ★</option></select></label>
         <button id="exportBtn" class="primary">💾 Save video…</button>
@@ -171,6 +177,41 @@
         <button id="exCancel" class="ghost small" hidden>Cancel</button>
       </section>
     </aside>
+  </main>
+
+
+  <main id="viewNotes" class="layout notes" hidden>
+    <aside class="left">
+      <section class="tool">
+        <h2>📝 Meeting notes</h2>
+        <div id="ntName" class="nt-name"></div>
+        <label class="field">Spoken language<select id="ntLang"></select></label>
+        <label class="field">Quality<select id="ntModel"></select></label>
+        <p id="ntHint" class="hint"></p>
+        <button id="ntGo" class="primary">✍ Write down what was said</button>
+        <div id="ntProg" class="prog" hidden><div id="ntBar"></div></div>
+        <p id="ntLine" class="muted"></p>
+        <button id="ntCancel" class="ghost small" hidden>■ Stop</button>
+      </section>
+      <section class="tool" id="ntSpkBox" hidden>
+        <h2>👥 Who is speaking <span class="pro-tag">PRO</span></h2>
+        <label class="field">How many people talk<select id="ntK"><option value="0">Find out automatically</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label>
+        <button id="ntSpk" class="tb">👥 Find who is speaking</button>
+        <div id="ntPeople" class="nt-people"></div>
+        <button id="ntRemember" class="ghost small" hidden title="Remember the named voices so they are recognised next time">🧠 Remember voices</button>
+        <p id="ntBank" class="hint"></p>
+      </section>
+      <section class="tool" id="ntSaveBox" hidden>
+        <h2>💾 Save the notes</h2>
+        <button id="ntDocx" class="primary">📄 Meeting minutes – Word (.docx) <span class="pro-tag">PRO</span></button>
+        <button id="ntTxt" class="tb">📝 Transcript (.txt)</button>
+      </section>
+      <p class="promise">🔒 The AI runs on this PC – the meeting is never uploaded.</p>
+    </aside>
+    <section class="stage nt-stage">
+      <div class="nt-head"><audio id="ntAudio" controls preload="metadata"></audio><span id="ntCountLine" class="muted"></span></div>
+      <div id="ntList" class="nt-list"></div>
+    </section>
   </main>
 
   <dialog id="proDialog" class="dlg">
@@ -183,6 +224,7 @@
       <li><strong>MP4 videos</strong> that play everywhere – phones, PowerPoint, WhatsApp, every website</li>
       <li><strong>Cut out mistakes</strong> in the middle and add a title at the start</li>
       <li><strong>Rounded and square camera</strong> with a coloured ring</li>
+      <li><strong>Meeting notes</strong> – the whole meeting written down in every quality, who said what, remembered voices and Word minutes</li>
     </ul>
     <p class="fb-note">💬 Something not working the way you want? Tell me – <a href="mailto:thequan03072002@gmail.com?subject=ScreenPress%20feedback">thequan03072002@gmail.com</a>. I read every message and improve the app.</p>
     <p id="proMsg" class="pro-msg" hidden></p>
@@ -195,6 +237,7 @@
   <div id="toast" class="toast" hidden></div>
   <div id="restartBar" class="restart" hidden>A new version of ScreenPress is ready. <button id="restartBtn" class="primary">Restart now</button></div>
   <script src="draw.js"></script>
+  <script src="notes-core.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
